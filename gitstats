@@ -1120,7 +1120,7 @@ class HTMLReportCreator(ReportCreator):
 		f.write('</dl>\n')
 
 		f.write(html_header(2, 'Lines of Code'))
-		f.write('<img src="lines_of_code.png" />')
+                f.write('<img src="lines_of_code.png" />')
 
 		fg = open(path + '/lines_of_code.dat', 'w')
 		for stamp in sorted(data.changes_by_date.keys()):
@@ -1314,7 +1314,9 @@ plot """
 		plots = []
 		for a in self.authors_to_plot:
 			i = i + 1
-			plots.append("""'lines_of_code_by_author.dat' using 1:%d title "%s" w lines""" % (i, a.replace("\"", "\\\"")))
+			a = a.replace("\"", "\\\"")
+                        a = a.replace('`', '')
+			plots.append("""'lines_of_code_by_author.dat' using 1:%d title "%s" w lines""" % (i, a))
 		f.write(", ".join(plots))
 		f.write('\n')
 
@@ -1341,7 +1343,9 @@ plot """
 		plots = []
 		for a in self.authors_to_plot:
 			i = i + 1
-			plots.append("""'commits_by_author.dat' using 1:%d title "%s" w lines""" % (i, a.replace("\"", "\\\"")))
+			a = a.replace("\"", "\\\"")
+                        a = a.replace('`', '')
+			plots.append("""'commits_by_author.dat' using 1:%d title "%s" w lines""" % (i, a))
 		f.write(", ".join(plots))
 		f.write('\n')
 
